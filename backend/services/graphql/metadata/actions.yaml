@@ -1,0 +1,26 @@
+actions:
+  - name: getuserdata
+    definition:
+      kind: synchronous
+      handler: '{{ACTION_BASE_URL}}/authservice'
+    permissions:
+      - role: guest
+      - role: staff
+      - role: admin
+  - name: inputvalidation
+    definition:
+      kind: synchronous
+      handler: '{{ACTION_BASE_URL}}/authservice'
+    permissions:
+      - role: guest
+      - role: staff
+      - role: admin
+custom_types:
+  enums: []
+  input_objects:
+    - name: getuserdataInput
+    - name: inputvalidationInput
+  objects:
+    - name: getuserdataResponse
+    - name: inputvalidationResponse
+  scalars: []

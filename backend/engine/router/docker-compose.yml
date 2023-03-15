@@ -1,0 +1,107 @@
+version: "3.9"
+services:
+  auth:
+    container_name: auth
+    restart: always
+    build: /Users/sandeepkumarsrivastava/Downloads/gluestack-test-main/backend/services/auth
+    volumes:
+      - /Users/sandeepkumarsrivastava/Downloads/gluestack-test-main/backend/services/auth:/server
+      - /server/node_modules
+    env_file:
+      - /Users/sandeepkumarsrivastava/Downloads/gluestack-test-main/backend/services/auth/.env
+  engine:
+    container_name: engine
+    restart: always
+    build: /Users/sandeepkumarsrivastava/Downloads/gluestack-test-main/backend/engine
+    volumes:
+      - /Users/sandeepkumarsrivastava/Downloads/gluestack-test-main/backend/engine:/server
+      - /server/node_modules
+    env_file:
+      - /Users/sandeepkumarsrivastava/Downloads/gluestack-test-main/backend/engine/.env
+  nginx:
+    container_name: nginx
+    restart: always
+    build: /Users/sandeepkumarsrivastava/Downloads/gluestack-test-main/backend/engine/router
+    ports:
+      - 9090:80
+    volumes:
+      - /Users/sandeepkumarsrivastava/Downloads/gluestack-test-main/backend/engine/router/nginx.conf:/etc/nginx/nginx.conf
+    depends_on:
+      graphql:
+        condition: service_healthy
+  graphql:
+    container_name: graphql
+    restart: always
+    image: hasura/graphql-engine:v2.16.1
+    ports:
+      - 8080:8080
+    volumes:
+      - /Users/sandeepkumarsrivastava/Downloads/gluestack-test-main/backend/services/graphql:/hasura
+    env_file:
+      - /Users/sandeepkumarsrivastava/Downloads/gluestack-test-main/backend/services/graphql/.env
+    healthcheck:
+      test:
+        - CMD-SHELL
+        - timeout 30s bash -c ':> /dev/tcp/127.0.0.1/8080' || exit 1
+      interval: 3s
+      timeout: 1s
+      retries: 10
+    depends_on:
+      postgres:
+        condition: service_healthy
+  todo:
+    container_name: todo
+    restart: always
+    build: /Users/sandeepkumarsrivastava/Downloads/gluestack-test-main/backend/services/todo
+    volumes:
+      - /Users/sandeepkumarsrivastava/Downloads/gluestack-test-main/backend/services/todo:/server
+      - /server/node_modules
+    env_file:
+      - /Users/sandeepkumarsrivastava/Downloads/gluestack-test-main/backend/services/todo/.env
+  cart:
+    container_name: cart
+    restart: always
+    build: /Users/sandeepkumarsrivastava/Downloads/gluestack-test-main/backend/services/cart
+    volumes:
+      - /Users/sandeepkumarsrivastava/Downloads/gluestack-test-main/backend/services/cart:/server
+      - /server/node_modules
+    env_file:
+      - /Users/sandeepkumarsrivastava/Downloads/gluestack-test-main/backend/services/cart/.env
+  authservice:
+    container_name: authservice
+    restart: always
+    build: /Users/sandeepkumarsrivastava/Downloads/gluestack-test-main/backend/services/auth-service
+    volumes:
+      - /Users/sandeepkumarsrivastava/Downloads/gluestack-test-main/backend/services/auth-service:/server
+      - /server/node_modules
+    env_file:
+      - /Users/sandeepkumarsrivastava/Downloads/gluestack-test-main/backend/services/auth-service/.env
+  savemsgs:
+    container_name: savemsgs
+    restart: always
+    build: /Users/sandeepkumarsrivastava/Downloads/gluestack-test-main/backend/services/saveMsgs
+    volumes:
+      - /Users/sandeepkumarsrivastava/Downloads/gluestack-test-main/backend/services/saveMsgs:/server
+      - /server/node_modules
+    env_file:
+      - /Users/sandeepkumarsrivastava/Downloads/gluestack-test-main/backend/services/saveMsgs/.env
+  postgres:
+    container_name: postgres
+    restart: always
+    image: postgres:12
+    ports:
+      - 5432:5432
+    volumes:
+      - /Users/sandeepkumarsrivastava/Downloads/gluestack-test-main/backend/databases/postgres/db:/var/lib/postgresql/data/
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgrespass
+      POSTGRES_DB: test
+    healthcheck:
+      test:
+        - CMD-SHELL
+        - psql -U postgres -d test
+      interval: 10s
+      timeout: 10s
+      retries: 50
+      start_period: 30s

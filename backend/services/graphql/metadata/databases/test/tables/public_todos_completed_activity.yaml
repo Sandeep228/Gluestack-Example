@@ -1,0 +1,3 @@
+table:
+  name: todos_completed_activity
+  schema: public

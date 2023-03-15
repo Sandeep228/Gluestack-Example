@@ -1,0 +1,22 @@
+{
+  "crons": [],
+  "database": {
+    "todos": {
+      "insert": [
+        {
+          "kind": "async",
+          "type": "function",
+          "value": "authservice::event-func"
+        }
+      ],
+      "update": [
+        {
+          "kind": "sync",
+          "type": "function",
+          "value": "authservice::todocompletedactivity"
+        }
+      ]
+    }
+  },
+  "app": {}
+}

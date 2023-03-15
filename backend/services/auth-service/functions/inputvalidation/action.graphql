@@ -1,0 +1,13 @@
+type Mutation {
+  inputvalidation(input: inputvalidationInput!): inputvalidationResponse
+}
+
+input inputvalidationInput {
+  item: String!
+}
+
+type inputvalidationResponse {
+  status: String!
+  message: String!
+  data: [Object]
+}

@@ -1,0 +1,31 @@
+type Mutation {
+  getuserdata(
+    input: getuserdataInput!
+  ): getuserdataResponse
+}
+
+type Mutation {
+  inputvalidation(
+    input: inputvalidationInput!
+  ): inputvalidationResponse
+}
+
+input getuserdataInput {
+  email: String!
+  password: String!
+}
+
+input inputvalidationInput {
+  item: String!
+}
+
+type getuserdataResponse {
+  status: Boolean!
+  message: String!
+}
+
+type inputvalidationResponse {
+  status: String!
+  message: String!
+}
+

@@ -1,0 +1,13 @@
+type Mutation {
+  getuserdata(input: getuserdataInput!): getuserdataResponse
+}
+
+input getuserdataInput {
+  email: String!
+  password: String!
+}
+
+type getuserdataResponse {
+  status: Boolean!
+  message: String!
+}

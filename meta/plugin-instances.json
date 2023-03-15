@@ -1,0 +1,71 @@
+{
+  "@gluestack/glue-plugin-engine": [
+    {
+      "instance": "gluestack-engine",
+      "directory": "",
+      "container_store": {}
+    }
+  ],
+  "@gluestack/glue-plugin-web": [
+    {
+      "instance": "webapp",
+      "directory": "./webapp",
+      "container_store": {}
+    },
+    {
+      "instance": "web",
+      "directory": "./web",
+      "container_store": {}
+    }
+  ],
+  "@gluestack/glue-plugin-backend-engine": [
+    {
+      "instance": "engine",
+      "directory": "./backend/engine",
+      "container_store": {}
+    }
+  ],
+  "@gluestack/glue-plugin-postgres": [
+    {
+      "instance": "postgres",
+      "directory": "./backend/databases/postgres",
+      "container_store": {}
+    }
+  ],
+  "@gluestack/glue-plugin-graphql": [
+    {
+      "instance": "graphql",
+      "directory": "./backend/services/graphql",
+      "container_store": {}
+    }
+  ],
+  "@gluestack/glue-plugin-service-node": [
+    {
+      "instance": "todo",
+      "directory": "./backend/services/todo",
+      "container_store": {}
+    },
+    {
+      "instance": "cart",
+      "directory": "./backend/services/cart",
+      "container_store": {}
+    },
+    {
+      "instance": "auth-service",
+      "directory": "./backend/services/auth-service",
+      "container_store": {}
+    },
+    {
+      "instance": "saveMsgs",
+      "directory": "./backend/services/saveMsgs",
+      "container_store": {}
+    }
+  ],
+  "@gluestack/glue-plugin-auth": [
+    {
+      "instance": "auth",
+      "directory": "./backend/services/auth",
+      "container_store": {}
+    }
+  ]
+}
